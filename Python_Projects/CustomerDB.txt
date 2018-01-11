@@ -1,0 +1,9 @@
+first:Dummer,last:Anddummer,phone:8007777777,street:32 Dumdum St.,city:Airhead,state:CA,zipcode:21111,email:dummy@gmail.com,accountNumber:410667217,balance:2112,socialSecurity:333 33 3333
+
+first:Jane,last:Doe,phone:3149897676,street:3 Invisible St.,city:Hell Hole,state:TX,zipcode:32109,email:blah@gmail.com,accountNumber:1599907335,balance:141693,socialSecurity:323 34 4545
+
+first:Jo,last:Mama,phone:2124443434,street:12 Broadway,city:New York,state:NY,zipcode:21344,email:jomama@gmail.com,accountNumber:520270766,balance:624200,socialSecurity:311 11 1515
+
+first:Mary,last:Smith,phone:3437724551,street:6 Cherry Ln.,city:Wiskoke,state:ID,zipcode:75521,email:maryhadalittlelamb.com,accountNumber:772042309,balance:4500,socialSecurity:888251111
+first:Therese,last:Demers,phone:4156767777,street:125 Cambon Dr.,city:San Francisco,state:CA,zipcode:94132,email:tdemers@hotmail.com,accountNumber:2115088429,balance:521973,socialSecurity:212 22 2121
+

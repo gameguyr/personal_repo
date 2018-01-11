@@ -1,0 +1,14 @@
+/Users/rlego/anaconda/bin/python
+total 80
+drwxr-xr-x   12 rlego  staff   408 Jun  2 23:18 .
+-rw-r--r--    1 rlego  staff    33 Jun  2 23:18 whichPythonTest.txt
+-rw-r--r--    1 rlego  staff   253 Jun  2 23:16 exponent1.py
+-rw-r--r--    1 rlego  staff   583 Jun  2 20:18 mTable.pyc
+-rw-r--r--    1 rlego  staff   548 Jun  2 20:18 mTable.py
+-rw-r--r--    1 rlego  staff   222 Jun  2 18:58 exponent3.py
+-rw-r--r--    1 rlego  staff   274 Jun  2 18:54 exponent3.pyc
+-rw-r--r--    1 rlego  staff   288 Jun  2 18:39 exponent2.py
+-rw-r--r--    1 rlego  staff   331 Jun  2 18:37 exponent2.pyc
+-rw-r--r--    1 rlego  staff   287 Jun  2 18:13 exponent1.pyc
+-rw-r--r--    1 rlego  staff   226 Jun  2 18:10 exProgQuestions.py
+drwxr-xr-x@ 147 rlego  staff  4998 Jun  2 18:01 ..

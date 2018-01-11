@@ -1,0 +1,3 @@
+{'first':'Therese','last':'Demers','phone':'415 797 3434','street': '1 Something St.','city':'San Francisco','state':'ca','email':'blah@gmail.com','zipcode': '94132'}
+{'first':'Jane','last':'Doe','phone':'415 444 4434','street': '1 Something St.','city':'San Francisco','state':'ca','email':'dummy@yahoo.com'}
+{'city': 'Morocco', 'last': 'Blah', 'phone': '415 777 4434', 'state': 'MO', 'street': '1 Boondocks St.', 'email': 'dud@yahoo.com', 'first': 'Joe'}

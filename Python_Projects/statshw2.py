@@ -1,0 +1,81 @@
+#!/usr/bin/python
+
+"""
+Authors: Therese Demers and Hilary Kazakoff
+Filename: statshw2.py
+Homework A2
+Notes: This was written using Python 2.7
+"""
+
+from __future__ import division
+import numpy
+import random
+
+NUM_SIMULATIONS = 10000
+
+
+"""
+startMaze() simulates one random path that a rat could make in a maze.  
+At the starting point the rat has a 50/50 chance of going either right or left.
+If the rat goes right he will return to starting point after 3 minutes.
+If the rat goes left he will come to another fork where it can go either 
+right or left.  There's 1/3 chance the rat will go left, in which the rat will
+exit the maze after 2 minutes.  There's a 2/3 chance the rat will go right,
+in which the rat will return to it's starting point after 5 minutes.
+startMaze() simulates on rat's tour through the maze and returns the number 
+of minutes the rat was trapped in the maze.
+"""
+def mazeTour():
+  totalMinutes = 0
+  exitMaze = False
+  while not exitMaze:
+    leftOrRight = random.randint(1,2)  	# Returns either 1 for left
+  					# or 2 for right
+    if(leftOrRight == 1):   	# if the rat goes right + 3 min.
+      totalMinutes = totalMinutes + 3
+
+    else:			# the rat went left
+      leftOrRight = random.randint(1,3)  # Returns either 1 for left (1/3 prob) 
+				       # or either 2 or 3 for right (2/3 prob)
+      if(leftOrRight == 1):	# if the rat went left again
+        totalMinutes = totalMinutes + 2
+        exitMaze = True
+
+      else:		# the rat went left then right add 5 minutes
+        totalMinutes = totalMinutes + 5
+  return totalMinutes
+
+"""
+startSimulation() simulates a rat going through the maze NUM_SIMULATIONS times
+and adds the resulting minutes from each tour to the minutes array/list.  It
+then calculates the mean and the standard deviation of the number of minutes
+that the rats were cumulatively stuck in the maze.
+"""
+def startSimulation():
+  minutes = []
+  x = NUM_SIMULATIONS	# counter for while loop
+  totalMinutes = 0	# sum of all the minutes for the mean
+  while(x > 0):
+    mazeMinutes = mazeTour()
+    totalMinutes = totalMinutes + mazeMinutes
+    minutes.append(mazeMinutes)
+    x = x - 1
+    
+  minutesNumpyArray = numpy.array(minutes)  	 # Making minutesNumpyArray equal
+						 # to a numpy array using the minutes
+				# array so I can use the # built in functions of numpy
+  meanMinutes =  round((totalMinutes/NUM_SIMULATIONS),4)  # Calculating the mean and rounding
+							  # to four decimal places 
+  stdDev = round(numpy.std(minutesNumpyArray),4)	  # Using numpy's built in function 
+							# to calculate the std dev and 
+							# rounding to four decimal places
+
+  print "\na) The mean of the minutes the rat was trapped in the maze is: {0} minutes\n".format(meanMinutes)
+  print "b) The standard deviation is: {0} minutes\n".format(stdDev)
+  
+ 
+if __name__ == "__main__":
+
+  startSimulation()    
+    
+

@@ -1,0 +1,226 @@
+import re
+import requests
+import sys
+
+
+"""Takes a string representation of PDBID and returns true if it's valid. A valid PDBID is defined to be 4 characters long, consisting of #'s and letters."""
+def validate_pdbid(pdbid):
+  return re.match(r'[\w-]+$',pdbid)
+
+"""This takes a PDBID and returns a URL from which to download the PDBID."""
+def build_url(pdbid):
+  if (validate_pdbid(pdbid) == True):
+    return ("http://www.rcsb.org/pdb/download/downloadFile.do?fileFormat=pdb&compression=NO&structureId="+str(pdbid))
+  else:
+    print("PDBID: %s is invalid.", str(pdbid))
+    sys.exit("Exiting program")
+
+"""Takes a PDBID, downloads it if the id is valid, and returns the contents of the response or none otherwise."""
+def download_pdb(pdbid):
+  pdb_file = requests.get(build_url(pdbid))
+  if (pdb_file.status_code == 200):
+    return pdb_file
+  else:
+    print("Unable to obtain pdb file for PDBID: %s.", str(pdbid))
+    sys.exit("Exiting program")
+
+"""Takes a string containing the contents of a PDB file and returns a list containing the TITLE in the first element and a list of atoms in the second element."""
+def pdb_lines(pdb_data):
+  pdb_file[] 
+  with open(pdb_data,'r') as pdb:
+    for line in pdb:
+      if(is_title_line(line)):
+         pdb_file[0].append(line)
+      elif(is_header_line(line)):
+         pdb_file[2].append(line)
+      elif(is_atom_line(line)):
+         atom = parse_atom_line(line)
+	 pdb_file[1].append(atom)
+      elif(is_terminal_line(line)):
+         pdb.close()
+         break
+  if(pdb.closed == False):
+    pdb.close()			#Just in case it wasn't closed
+  return pdb_file
+
+"""Takes a line from the PDB file and returns true if the line describes an ATOM and returns false otherwise."""
+def is_atom_line(line):
+  atom = line[:4]
+  return (str(atom) == "ATOM")
+
+"""Takes a line from the PDB file and returns true if the line is the title and returns false otherwise."""
+def is_title_line(line):
+  title = line[:6]
+  return (str(title) == "TITLE")
+
+"""Takes a line from the PDB file and returns true if the line is the terminal line; the list of ATOM records for polymer atoms must be terminated by a TER record. (source: http://deposit.rcsb.org/adit/docs/pdb_atom_format.html)"""
+def is_terminal_line(line)
+  terminal = line[:3]
+  return (str(terminal) == "TER")
+
+"""Takes a line from the PDB file and returns true if the line is the HEADER line and returns false otherwise."""
+def is_header_line(line):
+  header = line[:7]
+  return (str(header) == "HEADER")
+
+"""This will take an ATOM line from a PDB file, extracts the x,y,z coordinates, the amino acid/residue and the element of the atom an returns a list representation in the format [x,y,z,residue,element]."""
+def parse_atom_line(line):
+  x = atom_x_pos(line)
+  y = atom_y_pos(line)
+  z = atom_z_pos(line)
+  residue = atom_residue(line)
+  element = atom_element(line)
+  atom = [x,y,z,residue,element]
+  return atom  
+
+"""Returns the x position of atom as a float."""
+def atom_x_pos(atom):
+  return atom[30:38]
+
+"""Returns the y position of atom as a float."""
+def atom_y_pos(atom):
+  return atom[38:46]
+
+"""Returns the z position of atom as a float."""
+def atom_z_pos(atom):
+  return atom[46:54]
+
+""Returns a single character string representing the element of the atom (C, S, N, etc.)"""
+def atom_element(atom):
+  return atom[76:78]
+
+"""Returns a 3 character string representing the residue that the atom is part of."""
+def atom_residue(atom):
+  return atom[17:19]
+
+"""(old_range is a pair (min, max)) returns a new (min, max) updated with num if necessary."""
+def ​update_range(old_range, num):
+  if num < old_range[0]:
+    old_range[0] = num
+  elif num > old_range[1]:
+    old_range[1] = num
+  return old_range 
+
+"""Returns a float representing the volume of the box defined by the three ranges."""
+def volume(x_range, y_range, z_range):
+  length = y_range[1] - y_range[0]
+  width = x_range[1] - x_range[0]
+  height = z_range[1] - z_range[0]
+  return (length*width*height)
+
+"""Returns a set (or list) of points defining the corners of the bounding box."""
+def bounding_box(x_range,y_range,z_range):
+  box_coordinates = [(x_range[0],y_range[0],z_range[0]),(x_range[1],y_range[0],z_range[0]),
+  (x_range[1],y_range[0],z_range[1]),(x_range[0],y_range[0],z_range[1]),(x_range[0],y_range[1],z_range[0]),
+  (x_range[1],y_range[1],z_range[0]),(x_range[1],y_range[1],z_range[1]),(x_range[0],y_range[1],z_range[1]),]
+  return box_coordinates
+
+"""Prints a bounding box with the points labeled as "A-F" so that when the coordinates of the
+bounding box are printed, the user can clearly see which set of coordinates pertains to 
+which corner of the box."""
+def print_bounding_box():
+  "   F********G\n  * *     **\nB********C *\n *  *   *  *\n * E* * *  *H\n * *    * *\nA********D\n"  
+
+"""This takes a list of PDB lines and calculates the final properties of the pdb file."""
+def parse_pdb(pdb_lines):
+  title = pdb_title(pdb_lines[0])
+  id = pdb_id(pdb_lines[2])
+  num_atoms = pdb_atom_count(pdb_lines[1])
+  amino_acids = pdb_residue(pdb_lines[1])		
+  box = pdb_bounding_box_corners(pdb_lines[1])
+  volume = pdb_bounding_box_volume(box)
+  elements = pdb_elements(pdb_lines[1])
+  return [title,id,num_atoms,amino_acids,box,volume,elements]
+
+"""Returns the name (title) of the PDB file."""
+def pdb_title(pdb):
+  for x in pdb:
+    title = title + x[11:81]
+  return title
+
+"""Returns the original PDB ID supplied."""
+def pdb_id(pdb):
+  return pdb[63:67] 
+
+"""The set of (x,y,z) points defining the PDB bounding box."""
+def pdb_bounding_box_corners(pdb):
+  x_range[0,0]
+  y_range[0,0]
+  z_range[0,0]
+  for atom in pdb:
+     x_range = update_range(x_range, atom[0])
+     y_range = update_range(y_range, atom[1])
+     z_range = update_range(z_range, atom[2])
+  box = bounding_box(x_range,y_range,z_range)
+   
+
+"""Returns a float representing the volume of the bounding box around all of the atoms in the PDB file. 
+  The parameter "pdb" is actually the box_coordinates, because I didn't see the need to go through all the
+  atoms again to find the range"""
+def pdb_bounding_box_volume(pdb):
+  minimum = pdb[0]
+  maximum = pdb[6]
+  x_range = [minimum[0],maximum[0]]
+  y_range = [minimum[1],maximum[1]]
+  z_range = [minimum[2],maximum[2]]
+  box_volume = volume(x_range, y_range, z_range)
+  return box_volume
+
+"""Returns the total number of atoms in the PDB file."""
+def pdb_atom_count(pdb):
+  return len(pdb)
+
+"""Returns a dictionary containing all the residues as the key and their values are the number of 
+occurences for each residue seen in this protein."""
+def pdb_residue(pdb):
+  residues[]
+  for x in pdb:
+    if residues.has_key(x[3]):
+      residues[x[3]] +=1
+    else:
+      residues[x[3]] = '1'
+  return residues
+
+"""Returns a dictionary containing all the elements as the key and their values are the number of 
+occurences for each element seen in this protein."""
+def pdb_elements(pdb){
+  elements[]
+  for x in pdb:
+    if elements.has_key(x[4]):
+      elements[x[4]] += 1
+    else:
+      elements[x[4]] = 1
+  return elements
+  
+"""The stats parameter is a list with the following format: stats = title,pbid,num_atoms,amino_acids,box,volume,elements].
+It prints all of the data along with their corresponding statistics. """
+def print_statistics(stats):
+  print("The title for the PDB id no.: %s is the following: \n", str(stats[1]))
+  print title
+  print ("The number of atoms in this protein was %d \n", stats[2])
+  print "The following is a picture is a box with corners labled A-F to identify the box coordinates more easily: "
+  print_bounding_box()
+  letter = 'A'
+  box = stats[4]
+  for x in box:
+    print letter + ": " + x
+    letter++
+  print("The volume of the box is: %f \n", stats[5])
+  print "The following is the amino_acids seen in this protein, along with the number of occurences: \n"
+  residue = stats[3]
+  for x in residue:
+     print x
+     print "\n"
+  print "The following are the elements seen in this protein, along with the number of occurences: \n"
+  elements = stats[6]
+  for x in elements:
+     print x
+     print "\n"
+
+
+id = raw_input("Please enter a PDB id: ")
+pdb_file = download_pdb(id)
+pdb_list = pdb_lines(pdb_file)
+stats = parse_pdb(pdb_list)
+print_statistics(stats)
+

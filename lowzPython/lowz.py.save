@@ -1,0 +1,116 @@
+#! /usr/bin/python2.7
+
+#####################
+# PURPOSE:to visualize the lowz catalog SDSS
+#
+# DATE:4/20/2013
+#
+# AUTHOR: Russell Lego
+####################
+
+import pyfits as pf
+import matplotlib.pylab as plt
+import numpy as np
+import Tkinter as tk
+import tkMessageBox as mb
+
+
+#filePath = '/Users/rlego/IDLWorkspace/Default/lowz_project/lowz.fits'
+filePath = '~/Dropbox//PythonWorkspace/lowz
+catList = pf.open(filePath)
+
+catData = catList[1].data
+#######################
+# DEFINING CONSTANTS  #
+#######################
+c = 3.0E5
+h = 100.0
+#distance = map(lambda x:(c/h)*x, catData.field('ZDIST'))
+#rMag = map( lambda x:x[2], catData.field('ABSMAG'))
+#r50 = map( lambda x:x[2]/float(206265), catData.field('PETROTH50'))
+#size = np.multiply(r50, np.dot(distance, 1E6))
+
+
+
+
+#######################
+# Functions  #
+#######################
+def bandSelector(band):
+    if band=='u':
+        bandNumber=0
+    if band=='g':
+        bandNumber=1
+    if band=='r':
+        bandNumber=2
+    if band=='i':
+        bandNumber=3
+    if band=='z':
+        bandNumber=4
+    return bandNumber
+
+def size():
+    #distance in parsecs
+    #bandNumber = bandSelector(band)
+    bandNumber = bandSelector(bandEntry.get())
+    
+    r50 = map( lambda x:x[bandNumber]/float(206265), catData.field('PETROTH50'))
+    
+    distance = np.dot(catData.field('ZDIST'), (c/h)*1E6)
+    size = np.multiply(np.dot(r50, 1/float(206265)), distance)
+    return size
+        
+def sizeMag():
+    #bandNumber = bandSelector(band)
+    bandNumber = bandSelector(bandEntry.get())
+    bandMag = map(lambda x:x[bandNumber], catData.field('ABSMAG'))
+    r50 = map(lambda x:x[bandNumber]/float(206265), catData.field('PETROTH50'))
+    distance = np.dot(catData.field('ZDIST'), (c/h)*1E6)
+    size = np.multiply(np.dot(r50, 1/float(206265)), distance)
+    plt.scatter(bandMag, np.log10(size),  marker='.', s=0.1)
+    return plt.show()
+    
+def HR():
+    bandNumber = bandSelector(bandEntry.get())
+    otherBandNumber = bandSelector(otherBandEntry.get())
+    bandMag = map(lambda x:x[bandNumber], catData.field('ABSMAG'))
+    otherBandMag = map(lambda x:x[otherBandNumber], catData.field('ABSMAG'))
+    plt.scatter(np.subtract(bandMag, otherBandMag), bandMag,  marker='.', s=0.1)
+    return plt.show()
+
+    
+#######################
+# Tk part  #
+#######################
+the_window = tk.Tk()
+
+    #######################
+    # Widgets  #
+    #######################
+bandEntry=tk.Entry(the_window)
+otherBandEntry = tk.Entry(the_window)
+
+label = tk.Label(the_window, text='Menu Window', font=("Helvetica", 18))
+bandLabel = tk.Label(the_window, text='band')
+otherBandLabel = tk.Label(the_window, text='other band')
+
+sizeMagButton = tk.Button(the_window, text ="Size Magnitude", command = sizeMag)
+hrButton = tk.Button(the_window, text ="H-R Diagram", command = HR)
+
+label.pack(side='top')
+bandLabel.pack(side='left')
+bandEntry.pack(side='left')
+otherBandLabel.pack(side='left')
+otherBandEntry.pack(side='left')
+sizeMagButton.pack(side='left')
+hrButton.pack(side='left')
+
+
+
+
+the_window.mainloop()
+
+
+    
+
+    

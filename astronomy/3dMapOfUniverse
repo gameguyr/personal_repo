@@ -1,0 +1,53 @@
+#! /usr/bin/python2.7
+
+#####################
+# PURPOSE: to visualize the universe
+#
+# DATE: 6/19/2013
+#
+# AUTHOR: Russell Lego
+####################
+
+import pyfits as pf
+import matplotlib.pylab as plt
+import numpy as np
+import Tkinter as tk
+import tkMessageBox as mb
+
+
+filePath = '/Users/rlego/Dropbox/PythonWorkspace/allRed.fits'
+
+catList = pf.open(filePath)
+
+catData = catList[1].data
+
+PHI = RADecimalDegree * 15.0
+
+THETA = DECDecimalDegree
+
+RHO = (distance converted to scale units: light years,parsecs, or whatever)
+
+
+
+
+import numpy as np
+from mpl_toolkits.mplot3d import Axes3D
+import matplotlib.pyplot as plt
+
+def randrange(n, vmin, vmax):
+    return (vmax-vmin)*np.random.rand(n) + vmin
+
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+n = 100
+for c, m, zl, zh in [('r', 'o', -50, -25), ('b', '^', -30, -5)]:
+    xs = randrange(n, 23, 32)
+    ys = randrange(n, 0, 100)
+    zs = randrange(n, zl, zh)
+    ax.scatter(xs, ys, zs, c=c, marker=m)
+
+ax.set_xlabel('X Label')
+ax.set_ylabel('Y Label')
+ax.set_zlabel('Z Label')
+
+plt.show()

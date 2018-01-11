@@ -1,0 +1,18 @@
+ Last Name, First Name:  Doe, Jane
+ Phone Number: (141) 579-9434
+ Address:  5 Nowhere St.
+ Boondocks, TX 23102 
+ Email: duh@yahoo.com Last Name, First Name:  Demers, Therese
+ Phone Number: (415) 797-3434
+ Address:  1 Something St.
+ San Francisco, CA None 
+ Email: blah@gmail.com Last Name, First Name:  Jenkins, Sally
+ Phone Number: (777) 777-7777
+ Address:  1420 Something St.
+  Ny,  NEW YORK 10222 
+ Email: sj@yahoo.com
+ Last Name, First Name:   Ette, Dude
+ Phone Number: (415) 999-9999
+ Address:   2 Rainbbow Rd
+  Ca,  SAN FRANCISCO  92525 
+ Email:  dude@yahoo.com

@@ -1,0 +1,108 @@
+#!/usr/bin/python
+
+"""
+Authors: Therese Demers and Hilary Kazakoff
+Filename: means.py
+Notes: means.py was written using Python 2.7
+"""
+
+from __future__ import division
+import numpy
+import matplotlib.pyplot as plt
+import random
+
+
+TOTAL_NUMBERS = 25600    # Total number of random numbers generated per sample
+TOTAL_SAMPLES = 625
+
+print "Authors: Therese Demers and Hilary Kazakoff\n"
+
+def problemOne():
+  sampleMeans = []     	 		# Array containing the mean of each 625 samples.
+  totalSamples = TOTAL_SAMPLES   
+  while totalSamples > 0:   		# while loop executes 625 times; 625 samples.
+    totalRandomNumbers = TOTAL_NUMBERS
+    sumOfRand = 0        		# sumOfRand keeps track of the sum of all random numbers generated per sample.
+    while totalRandomNumbers > 0:   	# while executes 25600, for each of the 625 samples (total 25600 * 625 times).
+      number = round((random.uniform(1,2)),4)  	  # number = a random float generated between 1 and 2, rounded to 4 decimal places.
+      sumOfRand = sumOfRand + number
+      totalRandomNumbers = totalRandomNumbers -1  # decrementing for second while loop.
+    totalSamples = totalSamples - 1  		  # decrementing for first while loop.
+    mean = round((sumOfRand/TOTAL_NUMBERS),4)     # mean of this sample is sum of random numbers/ 25600, and is rounded to 4 decimal places
+    sampleMeans.append(mean)      		  # Appending the mean for this sample to the sampleMeans array.
+  print "1) Statistics for problem one: \n"
+  sampleMeans.sort()			# sort() is a built in function of python that sorts the numbers in ascending order
+  meanOfMeans = round((sum(sampleMeans)/TOTAL_SAMPLES),4)  # meanOfMeans is the sum all the means for all the samples divided by
+                                                           # by the number of samples, or 625, and is rounded to 4 decimal places
+  meanArray = numpy.array(sampleMeans)            # Making meanArray equal to a numpy array using the sampleMeans array so I can use the 
+                                                  # built in functions of numpy and pyplot.
+  subRange = numpy.where((meanArray >= 1.49) & (meanArray <=1.53))   # numpy.where returns an array of inidices where 
+								     # the condition 'x = [1.49,1.53]' is true
+  prob = len(subRange[0])/TOTAL_SAMPLES   	  # The array that numpy.where returns is an array of arrays, the first array is in element 0.
+                                                  # The probability of the condition that the mean is between two numbers is the number of elements
+                                                  # or means, where this condition was true, divided by the total number of means/samples.
+  print "1A) Probablity that the mean is between 1.49 and 1.53 inclusive is: {0}\n".format(prob) # printing result 
+  print "1B) mean of means: {0}\n".format(meanOfMeans)   # printing result
+  stdDev = numpy.std(meanArray)	        # Using built in std. dev. function of numpy.std. I tested this function and it returns the correct S.D.
+  stdDev = round(stdDev,4)		# Rounding the standard deviation to 4 decimal places.
+  print "1C) The standard deviation is: {0}\n".format(stdDev)  # printing result
+  plt.clf()  				# This clears the pyplot just in case there is random junk in there.
+  plt.hist(meanArray, color = '#E9E9FF')  # Creating a histogram using the means of the samples and making the bars a light gray color
+  plt.xlabel('MEANS')                  	# Labeling the x axis of the histogram
+  plt.ylabel('FREQUENCY')		# Labeling the y axis of the histogram
+  plt.title('PROBLEM 1D')		# Labeling the title of the histogram
+  plt.savefig('histogram.pdf')		# Writing the resulting histogram to a file called 'histogram.pdf
+
+def problemTwo():
+  sampleMeans = []     	 		# Array containing the mean of each 625 samples.
+  totalSamples = TOTAL_SAMPLES
+  while totalSamples > 0:   		# while loop executes 625 times; 625 samples.
+    totalRandomNumbers = TOTAL_NUMBERS
+    sumOfRand = 0        		# sumOfRand keeps track of the sum of all random numbers generated per sample.
+    while totalRandomNumbers > 0:   	# while executes 25600, for each of the 625 samples (total 25600 * 625 times).
+      number = random.randint(1,10)     # number = a random integer (whole num) generated between 1 and 10, rounded to 4 decimal places.
+      sumOfRand = sumOfRand + number
+      totalRandomNumbers = totalRandomNumbers -1  # decrementing for second while loop.
+    totalSamples = totalSamples - 1  		  # decrementing for first while loop.
+    mean = round((sumOfRand/TOTAL_NUMBERS),4)     # mean of this sample is sum of random numbers/ 25600, and is rounded to 4 decimal places
+    sampleMeans.append(mean)      	# Appending the mean for this sample to the sampleMeans array.
+  print "\n2) Statistics for problem two: \n"
+  sampleMeans.sort()			# sort() is a built in function of python that sorts the numbers in ascending order
+  meanOfMeans = round((sum(sampleMeans)/TOTAL_SAMPLES),4)  # meanOfMeans is the sum all the means for all the samples divided by
+                                                           # by the number of samples, or 625, and is rounded to 4 decimal places
+  meanArray2 = numpy.array(sampleMeans)           # Making meanArray equal to a numpy array using the sampleMeans array so I can use the 
+                                                  # built in functions of numpy and pyplot.
+  subRange2 = numpy.where((meanArray2 > 4.6) & (meanArray2 < 5.1))  # numpy.where returns an array of inidices where 
+ 								    # the condition 'x = (4.6,5.1)' is true
+  prob = len(subRange2[0])/TOTAL_SAMPLES    # The array that numpy.where returns is an array of arrays, the first array is in element 0.
+                                            # The probability of the condition that the mean is between two numbers is the number of elements
+                                            # or means, where this condition was true, divided by the total number of means/samples.
+  print "2A) Probablity that the mean is between 4.6 and 5.1 exclusive is: {0}\n".format(prob) # printing result
+  print "2B) mean of means: {0}\n".format(meanOfMeans)    # printing result
+  stdDev2 = numpy.std(meanArray2) 	 # Using the built in standard deviation function of numpy.std. I tested this function and it returns the correct S.D. 
+  stdDev2 = round(stdDev2,4)             # Rounding the standard deviation to 4 decimal places.
+  print "2C) The standard deviation is: {0}\n".format(stdDev2) # printing result
+  plt.clf() 				 # This clears the pyplot just in case there is random junk in there.
+  plt.hist(meanArray2,color = '#E9E9FF')  # Creating a histogram using the means of the samples and making the bars a light gray color
+  plt.xlabel('MEANS')                  	# Labeling the x axis of the histogram
+  plt.ylabel('FREQUENCY')		# Labeling the y axis of the histogram
+  plt.title('PROBLEM 2D')		# Labeling the title of the histogram
+  plt.savefig('histogram2.pdf')		# Writing the resulting histogram to a file called 'histogram2.pdf
+
+
+
+problemOne()
+problemTwo()
+
+
+
+# Tested that the standard deviation numpy.std returns was correct with the following:
+"""testStd = []
+for x in sampleMeans:
+  number = (x - meanOfMeans)**2
+  testStd.append(number)
+stdVar = (sum(testStd)/19)
+stdD = stdVar**.5
+stdD = round(stdD,4)
+print stdD
+"""
