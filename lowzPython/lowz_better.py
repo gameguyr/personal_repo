@@ -7,14 +7,16 @@
 #
 # AUTHOR: Russell Lego
 ####################
-
-import pyfits as pf
+import matplotlib
+matplotlib.use("TkAgg")
+import astropy.io.fits as pf
 import matplotlib.pylab as plt
 import numpy as np
 import Tkinter as tk
 import tkMessageBox as mb
 
-filePath = '/Users/rlego/Dropbox/PythonWorkspace/lowzPython/lowz.fits'
+# filePath = '/Users/rlego/Dropbox/PythonWorkspace/lowzPython/lowz.fits'
+filePath = 'lowz.fits'
 
 #filePath = '/Users/rlego/Dropbox/final_search/fin_cat.fits'
 catList = pf.open(filePath)
