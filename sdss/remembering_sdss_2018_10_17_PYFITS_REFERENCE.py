@@ -58,5 +58,12 @@ for i in range(0, len(interval_of_magnitude)):
 # plt.show()
 
 
-
+# I am trying to get the histogrtam values
 histograms_values, bins = numpy.histogram(a, bins = [0,20,40,60,80,100])
+
+# plt.scatter(interval_of_magnitude, number_of_objects,  marker='o', s=0.3)
+# plt.xlabel('interval_of_magnitude')
+# plt.ylabel('number_of_objects')
+# plt.title('number_of_objects vs. interval_of_magnitude')
+# plt.show()
+
