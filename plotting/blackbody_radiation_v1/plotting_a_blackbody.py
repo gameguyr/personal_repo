@@ -21,12 +21,21 @@ import matplotlib
 #################################
 colors_array = matplotlib.colors.cnames.keys()
 
-
+## physics constants
 h  = 6.626e-34
 b  = 2.897e-3
 kB = 1.380e-23
 # sigma = 5.670373 * 10**-8
 c  = 299792458.0
+
+## sdss bands
+u_band = 3543e-10
+g_band = 4770e-10
+r_band = 6231e-10
+i_band = 7625e-10
+z_band = 9134e-10
+
+## defining discretization
 
 lamda_start = 20*10**-10
 lamda_end = 50000*10**-10
