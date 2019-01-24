@@ -1,4 +1,11 @@
-) AND distanceMins IN (
-SELECT MIN(distanceMins)
-FROM lasSourceXDR7PhotoObj
-WHERE masterObjID=x.masterObjID AND sdssPrimary=1)
+   )
+   AND distanceMins IN 
+   (
+      SELECT
+         MIN(distanceMins) 
+      FROM
+         lasSourceXDR7PhotoObj 
+      WHERE
+         masterObjID = x.masterObjID 
+         AND sdssPrimary = 1
+   )

@@ -8,21 +8,21 @@ page = 'http://surveys.roe.ac.uk:8080/wsa/WSASQL'
 
 #Creating the inputs for the Form Submission
 # gobble_one.txt i the file containing all the coordinates
-file_path = '/Users/rlego/PythonWorkspace/posting/gobble_one.txt'
+file_path = 'gobble_one.txt'
 file = open(file_path, 'r')
 coord= file.readlines()
 file.close()
 
-s_path1 = '/Users/rlego/PythonWorkspace/posting/sql_pt1.txt'
-s_path2 = '/Users/rlego/PythonWorkspace/posting/sql_pt2.txt'
+s_path1 = 'sql_pt1.txt'
+s_path2 = 'sql_pt2.txt'
 f1 = open(s_path1,'r')
 f2 = open(s_path2,'r')
 s1 = f1.read()
 s2 = f2.read()
-f1.close
-f2.close
+f1.close()
+f2.close()
 
-#creating the arrary containg the coordinates for input
+#creating the array containing the coordinates for input
 sql_input=[]
 
 for i in range(len(coord)-1):
