@@ -1,3 +1,9 @@
+########################
+# TITLE: gobble_one.txt
+# AUTHOR: russell lego
+# DATE: 2019-02-06
+# PURPOSE: to hold all of the coordinates that outline all host galaxies
+########################
 (las.ra BETWEEN 42.924613 AND 43.043108 AND las.dec BETWEEN -0.895525 AND -0.777043)
 (las.ra BETWEEN 51.650281 AND 51.724127 AND las.dec BETWEEN -0.863453 AND -0.789615)
 (las.ra BETWEEN 2.946717 AND 3.104049 AND las.dec BETWEEN -0.493879 AND -0.336551)
