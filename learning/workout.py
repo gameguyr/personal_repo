@@ -8,15 +8,13 @@
 # AUTHOR: Russell Lego
 ####################
 
-import Tkinter as tk
-import ttk
-import Image as image
+
+from PIL import Image
 from random import randrange
-import os
 
 
-path = '/Users/rlego/Dropbox/PythonWorkspace/ActivityImages'
-struct={'swim': 'swim.png', 'bike': 'bike.png', 'run': 'run.png', 'hike': 'hike.png',\
+path = '/Users/lego/git/personal_repo/ActivityImages'
+picture_dictionary={'swim': 'swim.png', 'bike': 'bike.png', 'run': 'run.png', 'hike': 'hike.png',\
 'gym': 'gym.png', 'disc': 'disc.png', 'elliptical': 'elliptical.png', 'yoga': \
 'yoga.png', 'p90x': 'p90x.png'}
 
@@ -24,10 +22,10 @@ print''
 print' Are you ready to workout?'
 print''
 
-decision=raw_input('Please enter the y/n:   ')
+decision=raw_input('Please enter y/n:   ')
 if decision == 'y':
-    number = randrange(len(struct)-1)
-    workoutImage = image.open(path+'/'+struct[struct.keys()[number]])
+    number = randrange(len(picture_dictionary) - 1)
+    workoutImage = Image.open(path +'/' + picture_dictionary[picture_dictionary.keys()[number]])
     workoutImage.show()
 else:
     print ''
