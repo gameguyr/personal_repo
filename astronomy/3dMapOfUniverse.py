@@ -17,8 +17,8 @@ from mpl_toolkits.mplot3d import Axes3D
 
 
 ## loading data
-#filePath = '/Users/rlego/Dropbox/PythonWorkspace/allRed.fits'
-filePath = '/Users/rlego/Dropbox/PythonWorkspace/lowzPython/lowz.fits'
+#filePath = '/Users/lego/Dropbox/Programming/PythonWorkspace/allRed.fits'
+filePath = '/Users/lego/git/personal_repo/lowzPython/lowz.fits'
 catList = pf.open(filePath)
 catData = catList[1].data
 
