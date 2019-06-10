@@ -35,3 +35,14 @@ def deg2dms(deg):
      m = int(y)
      s = y % m * 60
      return d,m,s
+
+
+ra_h = 12
+ra_m = 44
+ra_s = 17.83
+
+dec_d = 11
+dec_m = 27
+dec_s = 42.8
+print 'going from:   ' + str(ra_h) + ':' + str(ra_m) + ':' + str(ra_s) + '    to:   ' + str(hms2dec(ra_h, ra_m, ra_s))
+print 'going from:   ' + str(dec_d) + ':' + str(dec_m) + ':' + str(dec_s) + '    to:   ' + str(dms2deg(dec_d, dec_m, dec_s))
