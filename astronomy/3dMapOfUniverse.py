@@ -33,10 +33,10 @@ h = 100.0
 #RHO = np.dot(catData.field('ZDIST'), (c/h)*1E6)
 #RVECT = RHO *np.cos(THETA)
 
-PHI = np.dot(np.dot(catData.field('RA')[0:1500], 15.0), np.pi/float(180))
-THETA = np.dot(catData.field('DEC')[0:1500], np.pi/float(180))
+PHI = np.dot(np.dot(catData.field('RA'), 15.0), np.pi/float(180))
+THETA = np.dot(catData.field('DEC'), np.pi/float(180))
 #RHO = np.dot(catData.field('Z')[0:15000], (c/h)*1E6)
-RHO = np.dot(catData.field('ZDIST')[0:1500], (c/h)*1E6)
+RHO = np.dot(catData.field('ZDIST'), (c/h)*1E6)
 RVECT = RHO *np.cos(THETA)
 
 print '''
@@ -47,7 +47,7 @@ Done with the angles and distance'''
 #Y = RVECT*np.sin(PHI)
 #Z = RHO*np.sin(THETA)
 
-X = RVECT*np.cos(np.dot(catData.field('RA')[0:1500], 15.0))
+X = RVECT*np.cos(np.dot(catData.field('RA'), 15.0))
 Y = RVECT*np.sin(PHI)
 Z = RHO*np.sin(THETA)
 
@@ -57,11 +57,15 @@ Done with Cartesian Coordinates'''
 
 #plotting the graph
 fig = plt.figure()
-ax = fig.add_subplot(111, projection='3d')
-ax.scatter(X, Y, Z, marker='o', s=0.1)
+# ax = fig.add_subplot(111, projection='3d')
+plt.scatter(catData.field('RA'), catData.field('DEC'),  marker='o', s=0.01, color='black')
+# ax.scatter(X, Y, Z, marker='o', s=0.1, color='black')
 
-ax.set_xlabel('Distance in Parsecs')
-ax.set_zlabel('Distance in Parsecs')
-ax.set_ylabel('Distance in Parsecs')
+# ax.set_xlabel('Distance in Parsecs')
+# ax.set_zlabel('Distance in Parsecs')
+# ax.set_ylabel('Distance in Parsecs')
+
+plt.xlabel('RA')
+plt.ylabel('DEC')
 
 plt.show()
