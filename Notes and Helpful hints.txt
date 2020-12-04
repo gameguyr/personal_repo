@@ -1,0 +1,12 @@
+
+
+WORKING WITH JUPYTER NOTEBOOKS
+I have found that you can run a small jupyter sever by running this
+
+/Users/lego/git/personal_repo/helpingBrianna % jupyter notebook
+
+Note you must be in the directory where the notebooks live.
+
+I also had to add the python kernal to jupyter via
+
+python -m IPython kernel install --name "local-venv" --user
